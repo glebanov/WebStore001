@@ -16,6 +16,8 @@ namespace WebStore
         //}
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddMvc();
+            services.AddControllersWithViews();
         }
 
        
@@ -26,6 +28,7 @@ namespace WebStore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseRouting();
 
             //var greetings = Configuration["Greetings"];
@@ -37,6 +40,9 @@ namespace WebStore
                     //await context.Response.WriteAsync(greetings);
                     await context.Response.WriteAsync(Configuration["Greetings"]);
                 });
+                endpoints.MapControllerRoute(
+                  "default",
+                  "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
