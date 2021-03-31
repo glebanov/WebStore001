@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 namespace WebStore
 {
     public record Startup(IConfiguration Configuration)
-    { 
+    {
         //private IConfiguration Configuration { get; }
         //public Startup(IConfiguration Configuration)
         //{
@@ -20,7 +20,7 @@ namespace WebStore
             services.AddControllersWithViews();
         }
 
-       
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -31,19 +31,18 @@ namespace WebStore
             app.UseStaticFiles();
             app.UseRouting();
 
-            //var greetings = Configuration["Greetings"];
-
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
+          {
+              endpoints.MapGet("/greetings", async context =>
+              {
                     //await context.Response.WriteAsync(greetings);
-                    await context.Response.WriteAsync(Configuration["Greetings"]);
-                });
+                   await context.Response.WriteAsync(Configuration["Greetings"]);
+              });
+                //Маршрут по умолчанию
                 endpoints.MapControllerRoute(
-                  "default",
-                  "{controller=Home}/{action=Index}/{id?}");
-            });
+                "default",
+                "{controller=Home}/{action=Index}/{id?}");
+          });
         }
     }
 }
