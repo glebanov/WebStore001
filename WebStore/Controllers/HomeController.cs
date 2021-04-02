@@ -32,6 +32,19 @@ namespace WebStore.Controllers
         {
             return View();
         }
+
+        public IActionResult Blog()
+        {
+            return View();
+        }
+        public IActionResult BlogSingle()
+        {
+            return View();
+        }
+        public IActionResult Error()
+        {
+            return View();
+        }
     }
 }
 
