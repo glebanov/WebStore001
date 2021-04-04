@@ -1,19 +1,27 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebStore.Infrastructure.Middleware;
+using WebStore.Data;
 using WebStore.Infrastructure.Conventions;
+using WebStore.Infrastructure.Interfaces;
+using WebStore.Infrastructure.Middleware;
+using WebStore.Infrastructure.Services;
+using WebStore.Models;
+
 
 namespace WebStore
 {
     public record Startup(IConfiguration Configuration)
     {
-   
+
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); //Указываем интерфейс и реализацию
             //services.AddMvc();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services
@@ -48,13 +56,13 @@ namespace WebStore
           {
               endpoints.MapGet("/greetings", async context =>
               {
-                    //await context.Response.WriteAsync(greetings);
-                   await context.Response.WriteAsync(Configuration["Greetings"]);
+                  //await context.Response.WriteAsync(greetings);
+                  await context.Response.WriteAsync(Configuration["Greetings"]);
               });
-                //Маршрут по умолчанию
-                endpoints.MapControllerRoute(
-                "default",
-                "{controller=Home}/{action=Index}/{id?}");
+              //Маршрут по умолчанию
+              endpoints.MapControllerRoute(
+              "default",
+              "{controller=Home}/{action=Index}/{id?}");
           });
         }
     }
