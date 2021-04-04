@@ -5,20 +5,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Infrastructure.Middleware;
+using WebStore.Infrastructure.Conventions;
 
 namespace WebStore
 {
     public record Startup(IConfiguration Configuration)
     {
-        //private IConfiguration Configuration { get; }
-        //public Startup(IConfiguration Configuration)
-        //{
-        //    this.Configuration = Configuration;
-        //}
+   
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddMvc();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services
+                   .AddControllersWithViews(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/)
+                   .AddRazorRuntimeCompilation();
         }
 
 
