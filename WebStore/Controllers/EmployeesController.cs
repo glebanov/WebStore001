@@ -6,6 +6,7 @@ using WebStore.Models;
 
 namespace WebStore.Controllers
 {
+    //[Route("staff")] // Можно переименовать контроллер 
     public class EmployeesController : Controller
     {
         private List<Employee> _Employees;
@@ -16,8 +17,10 @@ namespace WebStore.Controllers
 
         }
 
+        //[Route("all")] //Можно переименовать Index
         public IActionResult Index() => View(_Employees);
 
+        //[Route ("info(id-{id}")] //Можно переименовать Details
         public IActionResult Details(int id) // http://localhost:5000/employees/details/2
         {
             var employee = _Employees.FirstOrDefault(e => e.Id == id);
