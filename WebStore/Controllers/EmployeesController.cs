@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.Data;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Models;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
@@ -25,5 +27,48 @@ namespace WebStore.Controllers
                 return View(employee);
             return NotFound();
         }
+
+        #region Edit
+
+        public IActionResult Edit(int id)
+        {
+            if (id <= 0) return BadRequest();
+
+            var employee = _EmployeesData.Get(id); //Получаем сотрудника из сервиса по id
+
+            if (employee is null) //Проверям, чтобы сотрудник был найден
+                return NotFound(); // Если не был найден, возвращаем NotFound
+
+            return View(new EmployeeViewModel //Создаем объект и заполняем его параметры
+            {
+                Id = employee.Id,
+                LastName = employee.LastName,
+                Name = employee.FirstName,
+                MiddleName = employee.Patronymic,
+                Age = employee.Age
+            });
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EmployeeViewModel model) //Второй метод получает данные из ViewModel и может вызван только Post запросом
+        {
+            if (model is null)
+                throw new ArgumentNullException(nameof(model));
+
+            var employee = new Employee //Появляется новый объект сотрудника
+            {
+                Id = model.Id,
+                LastName = model.LastName,
+                FirstName = model.Name,
+                Patronymic = model.MiddleName,
+                Age = model.Age
+            };
+
+            _EmployeesData.Update(employee);
+
+            return RedirectToAction("Index");
+        }
+
+        #endregion
     }
 }
