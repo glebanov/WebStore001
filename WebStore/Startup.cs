@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 using WebStore.Data;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.Interfaces;
@@ -21,17 +24,33 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); //Указываем интерфейс и реализацию
+            services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); ; //Указываем интерфейс и реализацию
             //services.AddMvc();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            //services.AddTransient<>(); // Так регистрируем сервис, который не должен хранить состояние
+            //services.AddScoped<>();    // Так регистрируем сервис, который должен помнить состояние на время обработки входящего подключения
+            //services.AddSingleton<>(); // Так регистрируем сервис, хранящий состояние на всё время жизни приложения
             services
                    .AddControllersWithViews(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/)
                    .AddRazorRuntimeCompilation();
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env/*, IServiceProvider services*/)
         {
+            //var employees1 = services.GetService<IEmployeesData>();
+            //var employees2 = services.GetService<IEmployeesData>();
+
+            //var hash1 = employees1.GetHashCode();
+            //var hash2 = employees2.GetHashCode();
+
+            //using (var scope = services.CreateScope())
+            //{
+            //    var employees3 = scope.ServiceProvider.GetService<IEmployeesData>();
+            //    var hash3 = employees3.GetHashCode();
+            //}
+           
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
