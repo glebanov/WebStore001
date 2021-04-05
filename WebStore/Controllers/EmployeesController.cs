@@ -32,11 +32,14 @@ namespace WebStore.Controllers
 
         #region Edit
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
+            if (id is null)
+                return View(new EmployeeViewModel());
+
             if (id <= 0) return BadRequest();
 
-            var employee = _EmployeesData.Get(id); //Получаем сотрудника из сервиса по id
+            var employee = _EmployeesData.Get((int)id);  //Получаем сотрудника из сервиса по id
 
             if (employee is null) //Проверям, чтобы сотрудник был найден
                 return NotFound(); // Если не был найден, возвращаем NotFound
