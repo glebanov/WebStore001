@@ -25,30 +25,18 @@ namespace WebStore
         {
 
             services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); ; //Указываем интерфейс и реализацию
-            //services.AddMvc();
+        
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            //services.AddTransient<>(); // Так регистрируем сервис, который не должен хранить состояние
-            //services.AddScoped<>();    // Так регистрируем сервис, который должен помнить состояние на время обработки входящего подключения
-            //services.AddSingleton<>(); // Так регистрируем сервис, хранящий состояние на всё время жизни приложения
+          
             services
-                   .AddControllersWithViews(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/)
+                   .AddControllersWithViews()
                    .AddRazorRuntimeCompilation();
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env/*, IServiceProvider services*/)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //var employees1 = services.GetService<IEmployeesData>();
-            //var employees2 = services.GetService<IEmployeesData>();
-
-            //var hash1 = employees1.GetHashCode();
-            //var hash2 = employees2.GetHashCode();
-
-            //using (var scope = services.CreateScope())
-            //{
-            //    var employees3 = scope.ServiceProvider.GetService<IEmployeesData>();
-            //    var hash3 = employees3.GetHashCode();
-            //}
+            
            
             
             if (env.IsDevelopment())
@@ -75,11 +63,7 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
           {
-              endpoints.MapGet("/greetings", async context =>
-              {
-                  //await context.Response.WriteAsync(greetings);
-                  await context.Response.WriteAsync(Configuration["Greetings"]);
-              });
+            
               //Маршрут по умолчанию
               endpoints.MapControllerRoute(
               "default",
