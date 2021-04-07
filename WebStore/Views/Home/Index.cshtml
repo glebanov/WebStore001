@@ -1,22 +1,35 @@
-﻿
+﻿@using WebStore.Infrastructure.Interfaces
+@inject IProductData ProductData
+@{
+    var products = ProductData
+        .GetProducts()
+        .OrderBy(p => p.Order)
+        .Take(6)
+        .Select(p => new ProductViewModel
+        {
+            Id = p.Id,
+            Name = p.Name,
+            Price = p.Price,
+            ImageUrl = p.ImageUrl
+        });
+}
 
-@await Html.PartialAsync("Partial/_Slider") @*или таг-хелпер <partial name = "Partial/_Slider>*@
+<partial name="Partial/_Slider" />
 
 <section>
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                @await Html.PartialAsync("Partial/_LeftSidebar")
+                <partial name="Partial/_LeftSideBar" />
             </div>
 
             <div class="col-sm-9 padding-right">
-                @await Html.PartialAsync("Partial/_FeaturesItem")
+                <partial name="Partial/_FeaturesItems" model="products" />
 
-                @await Html.PartialAsync("Partial/_CategoryTab")
+                <partial name="Partial/_CategoryTab" />
 
-                @await Html.PartialAsync("Partial/_RecommendedItems")
+                <partial name="Partial/_RecomendedItems" />
             </div>
         </div>
     </div>
 </section>
-
