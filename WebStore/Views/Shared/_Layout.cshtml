@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title | E-Shopper</title>
+
+    @await Html.PartialAsync("Partial/_Styles")
+
+    @await RenderSectionAsync("Style", false)
+
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+
+</head><!--/head-->
+
+<body>
+    @await Html.PartialAsync("Partial/_Header") @*либо <partial name="Partial/_Header"/>*@
+
+    @RenderBody()
+
+    @await Html.PartialAsync("Partial/_Footer")
+
+
+    @await Html.PartialAsync("Partial/_Scripts")
+
+    @await RenderSectionAsync("Scrips", false)
+</body>
+</html>
