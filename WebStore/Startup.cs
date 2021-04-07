@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
+using WebStore.DAL.Context;
 
 
 namespace WebStore
@@ -16,7 +18,8 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //services.AddDbContext<WebStoreDB>(opt => opt.UseSqlite(Configuration.GetConnectionString("Sqlite"))); //Строка подключения Sqlite и подключить в NuGet
+            services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default"))); //Указываем какой сервер используем
             services.AddTransient<IEmployeesData, InMemoryEmployeesData>();  //Указываем интерфейс и реализацию
             services.AddTransient<IProductData, InMemoryProductData>();
 
