@@ -9,7 +9,7 @@ using WebStore.Infrastructure.Middleware;
 using WebStore.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
-
+using WebStore.Data;
 
 namespace WebStore
 {
@@ -20,6 +20,7 @@ namespace WebStore
         {
             //services.AddDbContext<WebStoreDB>(opt => opt.UseSqlite(Configuration.GetConnectionString("Sqlite"))); //Строка подключения Sqlite и подключить в NuGet
             services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default"))); //Указываем какой сервер используем
+            services.AddTransient<WebStoreDbInitializer>();
             services.AddTransient<IEmployeesData, InMemoryEmployeesData>();  //Указываем интерфейс и реализацию
             services.AddTransient<IProductData, InMemoryProductData>();
 
@@ -31,11 +32,11 @@ namespace WebStore
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db)
         {
-            
-           
-            
+
+            db.Initialize();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
