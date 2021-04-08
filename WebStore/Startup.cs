@@ -6,8 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Middleware;
-using WebStore.Infrastructure.Services;
-
+using Microsoft.EntityFrameworkCore;
+using WebStore.DAL.Context;
+using WebStore.Data;
+using WebStore.Infrastructure.Services.InMemory;
+using WebStore.Infrastructure.Services.InSQL;
 
 namespace WebStore
 {
@@ -16,9 +19,12 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //services.AddDbContext<WebStoreDB>(opt => opt.UseSqlite(Configuration.GetConnectionString("Sqlite"))); //Строка подключения Sqlite и подключить в NuGet
+            services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default"))); //Указываем какой сервер используем
+            services.AddTransient<WebStoreDbInitializer>();
             services.AddTransient<IEmployeesData, InMemoryEmployeesData>();  //Указываем интерфейс и реализацию
-            services.AddTransient<IProductData, InMemoryProductData>();
+            //services.AddTransient<IProductData, InMemoryProductData>();
+            services.AddTransient<IProductData, SqlProductData>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
           
@@ -28,11 +34,11 @@ namespace WebStore
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db)
         {
-            
-           
-            
+
+            db.Initialize();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
