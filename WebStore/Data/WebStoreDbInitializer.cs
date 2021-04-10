@@ -18,7 +18,7 @@ namespace WebStore.Data
 
         private readonly UserManager<User> _UserManager;
         private readonly RoleManager<Role> _RoleManager;
-
+                     
         public WebStoreDbInitializer(
             WebStoreDB db,
             ILogger<WebStoreDbInitializer> Logger,
@@ -54,6 +54,7 @@ namespace WebStore.Data
             try
             {
                 InitializeProducts();
+                InitializeIdentityAsync().Wait();
 
             }
             catch (Exception error)
