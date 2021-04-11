@@ -13,6 +13,7 @@ using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Infrastructure.Services.InSQL;
 using WebStore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
+using WebStore.Infrastructure.Services.InCookies;
 using System;
 
 namespace WebStore
@@ -65,9 +66,8 @@ namespace WebStore
             services.AddTransient<IEmployeesData, InMemoryEmployeesData>();  //Указываем интерфейс и реализацию
             //services.AddTransient<IProductData, InMemoryProductData>();
             services.AddTransient<IProductData, SqlProductData>();
-
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
-          
+            services.AddTransient<ICartService, InCookiesCartService>();
+      
             services
                    .AddControllersWithViews()
                    .AddRazorRuntimeCompilation();
