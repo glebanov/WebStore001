@@ -1,46 +1,31 @@
-﻿@model WebStore.Models.Employee
+﻿@using WebStore.Domain.Entities.Identity
+@model WebStore.Models.Employee
 
 @{
     Layout = "_LayoutEmployees";
-    ViewData["Title"] = $"Сотрудники id:{Model.Id}";
+    ViewData["Title"] = $"Сотрудник id:{Model.Id}";
 }
-
-<h4>Сотрудники</h4>
-<hr />
-<dl class="row">
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Id)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Id)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.FirstName)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.FirstName)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.LastName)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.LastName)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Patronymic)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Patronymic)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Age)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Age)
-    </dd>
+<h3>Сотрудник</h3>
+<dl class="dl-horizontal">
+    <dt>Id</dt>
+    <dd>@Model.Id</dd>
+    <dt>Фамилия</dt>
+    <dd>@Model.LastName</dd>
+    <dt>Имя</dt>
+    <dd>@Model.FirstName</dd>
+    <dt>Отчество</dt>
+    <dd>@Model.Patronymic</dd>
+    <dt>Возраст</dt>
+    <dd>@Model.Age</dd>
 </dl>
-@*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+
+<hr />
+
 <a asp-action="Index" class="btn btn-default">К списку</a>
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Редактировать</a>
-<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Удалить</a>
+
+@if (User.IsInRole(Role.Administrator))
+{
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Редактировать</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Удалить</a>
+}
 
