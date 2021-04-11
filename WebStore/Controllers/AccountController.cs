@@ -5,9 +5,11 @@ using WebStore.Domain.Entities.Identity;
 using WebStore.ViewModels;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebStore.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _UserManager;
@@ -23,8 +25,9 @@ namespace WebStore.Controllers
 
         //Нам нужен регистр в представлении контроллера Account
         #region Register
+        [AllowAnonymous] //Дает возможность предоставить доступ для анонимных пользователей в заблокированном контроллере
         public IActionResult Register() => View(new RegisterUserViewModel());
-
+        [AllowAnonymous]
         [HttpPost, ValidateAntiForgeryToken/*, ActionName("Register")*/]
         public async Task<IActionResult> Register/*Async*/(RegisterUserViewModel Model)
         {
@@ -63,8 +66,10 @@ namespace WebStore.Controllers
 
         #region Login
 
+        [AllowAnonymous]
         public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
 
+        [AllowAnonymous]
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel Model)
         {
