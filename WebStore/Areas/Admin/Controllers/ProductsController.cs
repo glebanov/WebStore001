@@ -13,18 +13,14 @@ namespace WebStore.Areas.Admin.Controllers
         public ProductsController(IProductData ProductData) => _ProductData = ProductData;
 
         public IActionResult Index() => View(_ProductData.GetProducts());
-        public IActionResult Edit(int id)
-        {
-            var product = _ProductData.GetProductById(id);
-            if (product is null) return NotFound();
-            return View(product);
-        }
+        public IActionResult Edit(int id) =>
+            _ProductData.GetProductById(id) is { } product
+                ? View(product)
+                : NotFound();
 
-        public IActionResult Delete(int id)
-        {
-            var product = _ProductData.GetProductById(id);
-            if (product is null) return NotFound();
-            return View(product);
-        }
+        public IActionResult Delete(int id) =>
+               _ProductData.GetProductById(id) is { } product
+                   ? View(product)
+                   : NotFound();
     }
 }
