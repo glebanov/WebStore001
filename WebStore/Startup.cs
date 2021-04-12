@@ -24,7 +24,10 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<WebStoreDB>(opt => opt.UseSqlite(Configuration.GetConnectionString("Sqlite"))); //Строка подключения Sqlite и подключить в NuGet
-            services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default"))); //Указываем какой сервер используем
+            services.AddDbContext<WebStoreDB>(opt =>
+             opt.UseSqlServer(Configuration.GetConnectionString("Default"))
+                .UseLazyLoadingProxies()
+             );
             services.AddTransient<WebStoreDbInitializer>();
 
             services.AddIdentity<User, Role>(/*opt => { }*/)
