@@ -24,7 +24,10 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<WebStoreDB>(opt => opt.UseSqlite(Configuration.GetConnectionString("Sqlite"))); //Строка подключения Sqlite и подключить в NuGet
-            services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default"))); //Указываем какой сервер используем
+            services.AddDbContext<WebStoreDB>(opt =>
+             opt.UseSqlServer(Configuration.GetConnectionString("Default"))
+                .UseLazyLoadingProxies()
+             );
             services.AddTransient<WebStoreDbInitializer>();
 
             services.AddIdentity<User, Role>(/*opt => { }*/)
@@ -67,7 +70,8 @@ namespace WebStore
             //services.AddTransient<IProductData, InMemoryProductData>();
             services.AddTransient<IProductData, SqlProductData>();
             services.AddTransient<ICartService, InCookiesCartService>();
-      
+            services.AddTransient<IOrderService, SqlOrderService>();
+
             services
                    .AddControllersWithViews()
                    .AddRazorRuntimeCompilation();
@@ -106,7 +110,12 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
           {
-            
+              //Маршрут для Areas/Admin
+              endpoints.MapControllerRoute(
+           name: "areas",
+           pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+         );
+
               //Маршрут по умолчанию
               endpoints.MapControllerRoute(
               "default",

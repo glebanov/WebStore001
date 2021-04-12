@@ -10,6 +10,6 @@ namespace WebStore.Domain.Entities
         //[Column("BrandOrder")] //- Можно указать из какого столбца данные будут загружены
         public int Order { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
