@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using WebStore.Domain.Entities.Identity;
 
-
-namespace WebStore.Data
+namespace WebStore.Services.Data
 {
     public class WebStoreDbInitializer
     {
@@ -18,7 +17,7 @@ namespace WebStore.Data
 
         private readonly UserManager<User> _UserManager;
         private readonly RoleManager<Role> _RoleManager;
-                     
+
         public WebStoreDbInitializer(
             WebStoreDB db,
             ILogger<WebStoreDbInitializer> Logger,
