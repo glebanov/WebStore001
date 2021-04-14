@@ -1,15 +1,11 @@
-﻿using System;
-using System.Linq;
-
+﻿using System.Linq;
 using Microsoft.AspNetCore.Http;
-
 using Newtonsoft.Json;
-
 using WebStore.Domain;
 using WebStore.Domain.Entities;
-using WebStore.Infrastructure.Interfaces;
+using WebStore.Domain.ViewModels;
 using WebStore.Infrastructure.Mapping;
-using WebStore.ViewModels;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Infrastructure.Services.InCookies
 {

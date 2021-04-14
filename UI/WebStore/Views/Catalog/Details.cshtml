@@ -1,4 +1,4 @@
-﻿@model ProductViewModel
+﻿@model WebStore.Domain.ViewModels.ProductViewModel
 @{
     ViewData["Title"] = $"Информация о товаре {Model.Name}";
 }
@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <partial name="Partial/_LeftSideBar"/>
+                <partial name="Partial/_LeftSideBar" />
             </div>
 
             <div class="col-sm-9 padding-right">
@@ -75,9 +75,9 @@
                     </div>
                 </div><!--/product-details-->
 
-                <partial name="Partial/_CategoryTab"/>
+                <partial name="Partial/_CategoryTab" />
 
-                <partial name="Partial/_RecomendedItems"/>
+                <partial name="Partial/_RecomendedItems" />
             </div>
         </div>
     </div>

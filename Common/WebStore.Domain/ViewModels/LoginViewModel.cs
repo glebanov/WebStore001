@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebStore.ViewModels
+namespace WebStore.Domain.ViewModels
 {
     public class LoginViewModel
     {

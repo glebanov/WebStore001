@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.ViewModels;
+using WebStore.Domain.ViewModels;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Components
 {
@@ -14,10 +14,10 @@ namespace WebStore.Components
 
         public IViewComponentResult Invoke() => View(GetBrands());
 
-        private IEnumerable<BrandsViewModel> GetBrands() =>
+        private IEnumerable<BrandViewModel> GetBrands() =>
             _ProductData.GetBrands()
                .OrderBy(brand => brand.Order)
-               .Select(brand => new BrandsViewModel
+               .Select(brand => new BrandViewModel
                {
                    Id = brand.Id,
                    Name = brand.Name,

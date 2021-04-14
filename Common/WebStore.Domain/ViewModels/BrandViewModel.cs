@@ -1,6 +1,6 @@
-﻿namespace WebStore.ViewModels
+﻿namespace WebStore.Domain.ViewModels
 {
-    public record BrandsViewModel
+    public record BrandViewModel
     {
         public int Id { get; init; }
 
