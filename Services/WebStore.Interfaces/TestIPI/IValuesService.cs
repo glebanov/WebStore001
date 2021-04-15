@@ -14,6 +14,6 @@ namespace WebStore.Interfaces.TestAPI
 
         HttpStatusCode Edit(int id, string value); //Редактировать
 
-        HttpStatusCode Remove(int id); //Удалять
+        bool Remove(int id); //Удалять
     }
 }
