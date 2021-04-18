@@ -9,7 +9,11 @@ namespace WebStore.Interfaces.Services
 
         Employee Get(int id); //Должно выдавать одного сотрудника по индификатору
 
+        Employee GetByName(string LastName, string FirstName, string Patronymic);
+
         int Add(Employee employee); //Должно уметь добавлять сотрудника
+
+        Employee Add(string LastName, string FirstName, string Patronymic, int Age);
 
         void Update(Employee employee); //Должно уметь обновлять сотрудника 
 
