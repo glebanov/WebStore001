@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using WebStore.Clients.Values;
 using WebStore.DAL.Context;
+using WebStore.Clients.Employees;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
@@ -68,7 +69,8 @@ namespace WebStore
             });
 
 
-            services.AddTransient<IEmployeesData, InMemoryEmployeesData>();  //Указываем интерфейс и реализацию
+            // services.AddTransient<IEmployeesData, InMemoryEmployeesData>();  //Указываем интерфейс и реализацию
+            services.AddTransient<IEmployeesData, EmployeesClient>();
             services.AddTransient<IProductData, SqlProductData>();
             services.AddTransient<ICartService, InCookiesCartService>();
             services.AddTransient<IOrderService, SqlOrderService>();
