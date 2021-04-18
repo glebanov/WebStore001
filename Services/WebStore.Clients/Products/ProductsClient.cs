@@ -15,7 +15,11 @@ namespace WebStore.Clients.Products
 
         public IEnumerable<SectionDTO> GetSections() => Get<IEnumerable<SectionDTO>>($"{Address}/sections");
 
+        public SectionDTO GetSectionById(int id) => Get<SectionDTO>($"{Address}/sections/{id}");
+
         public IEnumerable<BrandDTO> GetBrands() => Get<IEnumerable<BrandDTO>>($"{Address}/brands");
+
+        public BrandDTO GetBrandById(int id) => Get<BrandDTO>($"{Address}/brands/{id}");
 
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter = null) =>
             Post(Address, Filter ?? new ProductFilter())
