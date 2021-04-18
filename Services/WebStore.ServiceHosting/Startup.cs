@@ -7,12 +7,18 @@ using Microsoft.OpenApi.Models;
 using WebStore.DAL.Context;
 using WebStore.Services.Data;
 using Microsoft.EntityFrameworkCore;
+using WebStore.Services.Services.InMemory;
+using WebStore.Services.Services.InSQL;
+using WebStore.Domain.Entities.Identity;
+using WebStore.Interfaces.Services;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace WebStore.ServiceHosting
 {
     public class Startup
     {
-     
+
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration) => Configuration = configuration;
@@ -26,6 +32,32 @@ namespace WebStore.ServiceHosting
                );
             services.AddTransient<WebStoreDbInitializer>();
 
+            services.AddIdentity<User, Role>()
+            .AddEntityFrameworkStores<WebStoreDB>()
+            .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(opt =>
+            {
+#if DEBUG
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredUniqueChars = 3;
+#endif
+                opt.User.RequireUniqueEmail = false;
+                opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+
+                opt.Lockout.AllowedForNewUsers = false;
+                opt.Lockout.MaxFailedAccessAttempts = 10;
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+            });
+
+            services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
+            services.AddScoped<IProductData, SqlProductData>();
+            services.AddScoped<IOrderService, SqlOrderService>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -33,7 +65,7 @@ namespace WebStore.ServiceHosting
             });
         }
 
-     
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
