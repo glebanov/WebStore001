@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
+using WebStore.Domain.DTO;
 
 namespace WebStore.Controllers
 {
@@ -48,11 +50,23 @@ namespace WebStore.Controllers
                     Order = OrderModel,
                 });
 
-            var order = await OrderService.CreateOrder(
-                User.Identity!.Name,
-                _CartService.GetViewModel(),
-                OrderModel
-                );
+            //var order = await OrderService.CreateOrder(
+            //    User.Identity!.Name,
+            //    _CartServices.GetViewModel(),
+            //    OrderModel
+            //    );
+
+            var order_model = new CreateOrderModel
+            {
+                Order = OrderModel,
+                Items = _CartServices.GetViewModel().Items.Select(item => new OrderItemDTO
+                {
+                    Price = item.Product.Price,
+                    Quantity = item.Quantity,
+                }).ToList()
+            };
+
+            var order = await OrderService.CreateOrder(User.Identity!.Name, order_model);
 
             _CartService.Clear();
 
