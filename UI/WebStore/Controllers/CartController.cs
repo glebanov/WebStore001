@@ -8,9 +8,9 @@ namespace WebStore.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ICartService _CartService;
+        private readonly ICartServices _CartService;
 
-        public CartController(ICartService CartService) => _CartService = CartService;
+        public CartController(ICartServices CartService) => _CartService = CartService;
 
         public IActionResult Index() => View(new CartOrderViewModel { Cart = _CartService.GetViewModel() });
 

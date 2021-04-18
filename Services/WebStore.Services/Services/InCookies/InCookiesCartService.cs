@@ -9,7 +9,7 @@ using WebStore.Services.Mapping;
 
 namespace WebStore.Services.Services.InCookies
 {
-    public class InCookiesCartService : ICartService
+    public class InCookiesCartService : ICartServices 
     {
         private readonly IHttpContextAccessor _HttpContextAccessor;
         private readonly IProductData _ProductData;
@@ -21,6 +21,7 @@ namespace WebStore.Services.Services.InCookies
             {
                 var context = _HttpContextAccessor.HttpContext;
                 var cookies = context!.Response.Cookies;
+
                 var cart_cookies = context.Request.Cookies[_CartName];
                 if (cart_cookies is null)
                 {
@@ -58,7 +59,7 @@ namespace WebStore.Services.Services.InCookies
 
             var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
             if (item is null)
-                cart.Items.Add(new CartItem { ProductId = id });
+                cart.Items.Add(new CartItem {ProductId = id});
             else
                 item.Quantity++;
 
@@ -70,12 +71,12 @@ namespace WebStore.Services.Services.InCookies
             var cart = Cart;
 
             var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
-            if (item is null) return;
+            if(item is null) return;
 
             if (item.Quantity > 0)
                 item.Quantity--;
 
-            if (item.Quantity == 0)
+            if (item.Quantity <= 0)
                 cart.Items.Remove(item);
 
             Cart = cart;
@@ -84,13 +85,9 @@ namespace WebStore.Services.Services.InCookies
         public void Remove(int id)
         {
             var cart = Cart;
-
             var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
             if (item is null) return;
-
-
             cart.Items.Remove(item);
-
             Cart = cart;
         }
 
@@ -108,13 +105,13 @@ namespace WebStore.Services.Services.InCookies
                 Ids = Cart.Items.Select(item => item.ProductId).ToArray()
             });
 
-            var product_view_models = products.ToView().ToDictionary(p => p.Id);
+            var products_views = products.FromDTO().ToView().ToDictionary(p => p.Id);
 
             return new CartViewModel
             {
                 Items = Cart.Items
-                   .Where(item => product_view_models.ContainsKey(item.ProductId))
-                   .Select(item => (product_view_models[item.ProductId], item.Quantity))
+                   .Where(item => products_views.ContainsKey(item.ProductId))
+                   .Select(item => (products_views[item.ProductId], item.Quantity))
             };
         }
     }
