@@ -5,6 +5,7 @@ using WebStore.Domain.Models;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Data;
 
+
 namespace WebStore.Services.Services.InMemory
 {
     public class InMemoryEmployeesData : IEmployeesData
@@ -54,6 +55,16 @@ namespace WebStore.Services.Services.InMemory
             var item = Get(id);
             if (item is null) return false;
             return _Employees.Remove(item);
+        }
+
+        public Employee GetByName(string LastName, string FirstName, string Patronymic)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Employee Add(string LastName, string FirstName, string Patronymic, int Age)
+        {
+            throw new NotImplementedException();
         }
     }
 }

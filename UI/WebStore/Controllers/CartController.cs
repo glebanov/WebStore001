@@ -10,33 +10,33 @@ namespace WebStore.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ICartServices _CartService;
+        private readonly ICartServices _CartServices;
 
-        public CartController(ICartServices CartService) => _CartService = CartService;
+        public CartController(ICartServices CartService) => _CartServices = CartService;
 
-        public IActionResult Index() => View(new CartOrderViewModel { Cart = _CartService.GetViewModel() });
+        public IActionResult Index() => View(new CartOrderViewModel { Cart = _CartServices.GetViewModel() });
 
         public IActionResult Add(int id)
         {
-            _CartService.Add(id);
+            _CartServices.Add(id);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Remove(int id)
         {
-            _CartService.Remove(id);
+            _CartServices.Remove(id);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Decrement(int id)
         {
-            _CartService.Decrement(id);
+            _CartServices.Decrement(id);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Clear()
         {
-            _CartService.Clear();
+            _CartServices.Clear();
             return RedirectToAction(nameof(Index));
         }
 
@@ -46,7 +46,7 @@ namespace WebStore.Controllers
             if (!ModelState.IsValid)
                 return View(nameof(Index), new CartOrderViewModel
                 {
-                    Cart = _CartService.GetViewModel(),
+                    Cart = _CartServices.GetViewModel(),
                     Order = OrderModel,
                 });
 
@@ -68,7 +68,7 @@ namespace WebStore.Controllers
 
             var order = await OrderService.CreateOrder(User.Identity!.Name, order_model);
 
-            _CartService.Clear();
+            _CartServices.Clear();
 
             return RedirectToAction(nameof(OrderConfirmed), new { order.Id });
         }
