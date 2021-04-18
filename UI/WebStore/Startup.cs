@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using WebStore.Clients.Products;
 using System;
 using WebStore.Clients.Values;
+using WebStore.Clients.Orders;
 using WebStore.DAL.Context;
 using WebStore.Clients.Employees;
 using WebStore.Domain.Entities.Identity;
@@ -74,7 +75,8 @@ namespace WebStore
             services.AddTransient<IEmployeesData, EmployeesClient>();
             services.AddScoped<IProductData, ProductsClient>();
             services.AddTransient<ICartServices, InCookiesCartService>();
-            services.AddTransient<IOrderService, SqlOrderService>();
+            //services.AddTransient<IOrderService, SqlOrderService>();
+            services.AddScoped<IOrderService, OrdersClient>();
             services.AddScoped<IValuesService, ValuesClient>();
 
             services
