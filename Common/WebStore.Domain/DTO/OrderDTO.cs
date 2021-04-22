@@ -26,6 +26,8 @@ namespace WebStore.Domain.DTO
     {
         /// <summary>Идентификатор</summary>
         public int Id { get; set; }
+        /// <summary>Идентификатор продукта</summary>
+        public int ProductId { get; set; }
         /// <summary>Цена</summary>
         public decimal Price { get; set; }
         /// <summary>Количество</summary>
