@@ -30,23 +30,23 @@ namespace WebStore
 
 
             services.AddIdentity<User, Role>()
+                  .AddIdentityWebStoreWebAPIClients()
+                  .AddDefaultTokenProviders();
 
-             .AddDefaultTokenProviders();
+            //#region Identity stores custom implementations
 
-            #region Identity stores custom implementations
+            //services.AddTransient<IUserStore<User>, UsersClient>();
+            //services.AddTransient<IUserRoleStore<User>, UsersClient>();
+            //services.AddTransient<IUserPasswordStore<User>, UsersClient>();
+            //services.AddTransient<IUserEmailStore<User>, UsersClient>();
+            //services.AddTransient<IUserPhoneNumberStore<User>, UsersClient>();
+            //services.AddTransient<IUserTwoFactorStore<User>, UsersClient>();
+            //services.AddTransient<IUserClaimStore<User>, UsersClient>();
+            //services.AddTransient<IUserLoginStore<User>, UsersClient>();
 
-            services.AddTransient<IUserStore<User>, UsersClient>();
-            services.AddTransient<IUserRoleStore<User>, UsersClient>();
-            services.AddTransient<IUserPasswordStore<User>, UsersClient>();
-            services.AddTransient<IUserEmailStore<User>, UsersClient>();
-            services.AddTransient<IUserPhoneNumberStore<User>, UsersClient>();
-            services.AddTransient<IUserTwoFactorStore<User>, UsersClient>();
-            services.AddTransient<IUserClaimStore<User>, UsersClient>();
-            services.AddTransient<IUserLoginStore<User>, UsersClient>();
+            //services.AddTransient<IRoleStore<Role>, RolesClient>();
 
-            services.AddTransient<IRoleStore<Role>, RolesClient>();
-
-            #endregion
+            //#endregion
 
 
             services.Configure<IdentityOptions>(opt =>
@@ -97,7 +97,7 @@ namespace WebStore
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-           
+
 
             if (env.IsDevelopment())
             {
