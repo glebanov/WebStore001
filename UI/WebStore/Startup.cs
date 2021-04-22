@@ -27,15 +27,10 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<WebStoreDB>(opt => opt.UseSqlite(Configuration.GetConnectionString("Sqlite"))); //Строка подключения Sqlite и подключить в NuGet
-            services.AddDbContext<WebStoreDB>(opt =>
-             opt.UseSqlServer(Configuration.GetConnectionString("Default"))
-                .UseLazyLoadingProxies()
-             );
-            services.AddTransient<WebStoreDbInitializer>();
 
-            services.AddIdentity<User, Role>(/*opt => { }*/)
-           //  .AddEntityFrameworkStores<WebStoreDB>()
+
+            services.AddIdentity<User, Role>()
+
              .AddDefaultTokenProviders();
 
             #region Identity stores custom implementations
@@ -86,11 +81,10 @@ namespace WebStore
             });
 
 
-            // services.AddTransient<IEmployeesData, InMemoryEmployeesData>();  //Указываем интерфейс и реализацию
+
             services.AddTransient<IEmployeesData, EmployeesClient>();
             services.AddScoped<IProductData, ProductsClient>();
-            services.AddTransient<ICartServices, InCookiesCartService>();
-            //services.AddTransient<IOrderService, SqlOrderService>();
+            services.AddScoped<ICartServices, InCookiesCartService>();
             services.AddScoped<IOrderService, OrdersClient>();
             services.AddScoped<IValuesService, ValuesClient>();
 
@@ -100,10 +94,10 @@ namespace WebStore
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            db.Initialize();
+           
 
             if (env.IsDevelopment())
             {
