@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.ServiceHosting", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Clients", "Services\WebStore.Clients\WebStore.Clients.csproj", "{B3CD8E47-1321-4B1A-9E1D-AA8158DBF7CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.ConsoleUl", "UI\WebStore.ConsoleUl\WebStore.ConsoleUl.csproj", "{49394210-38F5-423E-99A7-3499ABC06673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.ConsoleUl", "UI\WebStore.ConsoleUl\WebStore.ConsoleUl.csproj", "{49394210-38F5-423E-99A7-3499ABC06673}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
