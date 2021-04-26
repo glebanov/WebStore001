@@ -40,6 +40,7 @@ namespace WebStore.Controllers
                 UserName = Model.UserName
             };
 
+            //_Logger.LogInformation("Регистрация пользователя {0}", user.UserName);
             using (_Logger.BeginScope("Регистрация пользователя {0}", Model.UserName))
             {
                 var registration_result = await _UserManager.CreateAsync(user, Model.Password);
