@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 namespace WebStore
 {
     public class Program
