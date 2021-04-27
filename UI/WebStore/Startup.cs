@@ -22,8 +22,6 @@ using WebStore.Interfaces.TestAPI;
 using WebStore.Services.Data;
 using WebStore.Services.Services.InCookies;
 
-
-
 namespace WebStore
 {
     public record Startup(IConfiguration Configuration)
@@ -116,7 +114,6 @@ namespace WebStore
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseWelcomePage("/welcome");
 
