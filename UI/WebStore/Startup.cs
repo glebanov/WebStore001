@@ -19,6 +19,8 @@ using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Services.Data;
 using WebStore.Services.Services.InCookies;
+using Microsoft.Extensions.Logging;
+using WebStore.Logger;
 
 namespace WebStore
 {
@@ -94,9 +96,9 @@ namespace WebStore
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
-
+            log.AddLog4Net();
 
 
             if (env.IsDevelopment())
