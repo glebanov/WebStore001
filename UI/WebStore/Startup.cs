@@ -119,6 +119,8 @@ namespace WebStore
 
             app.UseMiddleware<TestMiddleware>();
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
             app.MapWhen(
                 context => context.Request.Query.ContainsKey("id") && context.Request.Query["id"] == "5",
                 context => context.Run(async request => await request.Response.WriteAsync("Hello with id ==5!"))
