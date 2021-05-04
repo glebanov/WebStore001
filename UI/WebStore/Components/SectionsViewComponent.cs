@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
 
@@ -27,7 +25,7 @@ namespace WebStore.Components
                    Id = s.Id,
                    Name = s.Name,
                    Order = s.Order,
-                   ProductsCount = s.Products.Count(),
+                  
                })
                .ToList();
 
@@ -43,7 +41,7 @@ namespace WebStore.Components
                         Name = child_section.Name,
                         Order = child_section.Order,
                         Parent = parent_section,
-                        ProductsCount = child_section.Products.Count()
+                    
                     });
 
                 parent_section.ChildSections.Sort(OrderSortMethod);

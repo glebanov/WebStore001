@@ -1,40 +1,42 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
+using WebStore.Domain.DTO;
 
 namespace WebStore.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ICartService _CartService;
+        private readonly ICartServices _CartServices;
 
-        public CartController(ICartService CartService) => _CartService = CartService;
+        public CartController(ICartServices CartService) => _CartServices = CartService;
 
-        public IActionResult Index() => View(new CartOrderViewModel { Cart = _CartService.GetViewModel() });
+        public IActionResult Index() => View(new CartOrderViewModel { Cart = _CartServices.GetViewModel() });
 
         public IActionResult Add(int id)
         {
-            _CartService.Add(id);
+            _CartServices.Add(id);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Remove(int id)
         {
-            _CartService.Remove(id);
+            _CartServices.Remove(id);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Decrement(int id)
         {
-            _CartService.Decrement(id);
+            _CartServices.Decrement(id);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Clear()
         {
-            _CartService.Clear();
+            _CartServices.Clear();
             return RedirectToAction(nameof(Index));
         }
 
@@ -44,17 +46,29 @@ namespace WebStore.Controllers
             if (!ModelState.IsValid)
                 return View(nameof(Index), new CartOrderViewModel
                 {
-                    Cart = _CartService.GetViewModel(),
+                    Cart = _CartServices.GetViewModel(),
                     Order = OrderModel,
                 });
 
-            var order = await OrderService.CreateOrder(
-                User.Identity!.Name,
-                _CartService.GetViewModel(),
-                OrderModel
-                );
+            //var order = await OrderService.CreateOrder(
+            //    User.Identity!.Name,
+            //    _CartServices.GetViewModel(),
+            //    OrderModel
+            //    );
 
-            _CartService.Clear();
+            var order_model = new CreateOrderModel
+            {
+                Order = OrderModel,
+                Items = _CartServices.GetViewModel().Items.Select(item => new OrderItemDTO
+                {
+                    Price = item.Product.Price,
+                    Quantity = item.Quantity,
+                }).ToList()
+            };
+
+            var order = await OrderService.CreateOrder(User.Identity!.Name, order_model);
+
+            _CartServices.Clear();
 
             return RedirectToAction(nameof(OrderConfirmed), new { order.Id });
         }

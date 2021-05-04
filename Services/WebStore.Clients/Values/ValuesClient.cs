@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Microsoft.Extensions.Configuration;
 using WebStore.Clients.Base;
+using WebStore.Interfaces;
 using WebStore.Interfaces.TestAPI;
 
 namespace WebStore.Clients.Values
 {
     public class ValuesClient : BaseClient, IValuesService
     {
-        public ValuesClient(IConfiguration Configuration) : base(Configuration, "api/values") { }
+        public ValuesClient(IConfiguration Configuration) : base(Configuration, WebAPI.TestWebAPI) { }
 
 
         public IEnumerable<string> Get()

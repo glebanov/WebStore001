@@ -1,16 +1,21 @@
 ﻿using System.Collections.Generic;
-using WebStore.Domain.Entities;
 using WebStore.Domain;
+using WebStore.Domain.DTO;
 
 namespace WebStore.Interfaces.Services
 {
     public interface IProductData
     {
-        IEnumerable<Section> GetSections();
+        IEnumerable<SectionDTO> GetSections();
 
-        IEnumerable<Brand> GetBrands();
-        IEnumerable<Product> GetProducts(ProductFilter Filter = null);
+        SectionDTO GetSectionById(int id);
 
-        Product GetProductById(int id);
+        IEnumerable<BrandDTO> GetBrands();
+
+        BrandDTO GetBrandById(int id);
+
+        IEnumerable<ProductDTO> GetProducts(ProductFilter Filter = null);
+
+        ProductDTO GetProductById(int id);
     }
 }
