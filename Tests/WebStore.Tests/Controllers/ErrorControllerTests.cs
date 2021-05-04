@@ -29,7 +29,7 @@ namespace WebStore.Tests.Controllers
             Assert.IsType<ViewResult>(result);
         }
         [TestMethod]
-        public void ErrorStatus_RedirectTo_Error()
+        public void ErrorStatus_404_RedirectTo_Error()
         {
             var controller = new ErrorController();
 
