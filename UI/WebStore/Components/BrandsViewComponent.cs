@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
-
 namespace WebStore.Components
 {
     public class BrandsViewComponent : ViewComponent
@@ -12,16 +11,16 @@ namespace WebStore.Components
 
         public BrandsViewComponent(IProductData ProductData) => _ProductData = ProductData;
 
-        public IViewComponentResult Invoke() => View(GetBrands());
+        
+        public IViewComponentResult Invoke(string BrandId) => View(GetBrands());
 
         private IEnumerable<BrandViewModel> GetBrands() =>
             _ProductData.GetBrands()
-               .OrderBy(brand => brand.Order)
-               .Select(brand => new BrandViewModel
+               .OrderBy(b => b.Order)
+               .Select(b => new BrandViewModel
                {
-                   Id = brand.Id,
-                   Name = brand.Name,
-             
+                   Id = b.Id,
+                   Name = b.Name
                });
     }
 }
