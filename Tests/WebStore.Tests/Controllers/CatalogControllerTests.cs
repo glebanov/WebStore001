@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Extensions.Configuration;
 
 using Moq;
 
@@ -49,7 +50,10 @@ namespace WebStore.Tests.Controllers
                         Section = new SectionDTO { Id = 1, Name = "Section", Order = 1 }
                     });
 
-            var controller = new CatalogController(product_data_mock.Object);
+            var configuration_mock = new Mock<IConfiguration>();
+            configuration_mock.Setup(c => c[It.IsAny<string>()]).Returns("3");
+
+            var controller = new CatalogController(product_data_mock.Object, configuration_mock.Object);
 
             #endregion
 

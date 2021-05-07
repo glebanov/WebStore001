@@ -7,6 +7,7 @@ using WebStore.Domain.DTO;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Mapping;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace WebStore.Services.Services.InSQL
 {
@@ -29,7 +30,7 @@ namespace WebStore.Services.Services.InSQL
        .FirstOrDefault(s => s.Id == id)
        .ToDTO();
 
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter = null)
+        public PageProductsDTO GetProducts(ProductFilter Filter = null)
         {
             IQueryable<Product> query = _db.Products
               .Include(p => p.Brand)
@@ -45,7 +46,19 @@ namespace WebStore.Services.Services.InSQL
                 if (Filter?.BrandId is { } brand_id)
                     query = query.Where(product => product.BrandId == brand_id);
             }
-            return query.AsEnumerable().ToDTO();
+            var total_count = query.Count();
+
+            //if (Filter?.PageSize > 0)
+            //    query = query
+            //       .Skip((Filter.Page - 1) * (int) Filter.PageSize)
+            //       .Take((int) Filter.PageSize);
+
+            if (Filter is { PageSize: > 0 and var page_size, Page: > 0 and var page_number })
+                query = query
+                   .Skip((page_number - 1) * page_size)
+                   .Take(page_size);
+
+            return new PageProductsDTO(query.AsEnumerable().ToDTO(), total_count);
         }
         public ProductDTO GetProductById(int id) => _db.Products
              .Include(product => product.Brand)
