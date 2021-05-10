@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using WebStore.Hubs;
 using WebStore.Clients.Employees;
 using WebStore.Clients.Identity;
 using WebStore.Clients.Orders;
@@ -95,6 +96,7 @@ namespace WebStore
             services
                    .AddControllersWithViews()
                    .AddRazorRuntimeCompilation();
+            services.AddSignalR();
         }
 
 
@@ -132,6 +134,7 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
           {
+              endpoints.MapHub<ChatHub>("/chat");
               //Маршрут для Areas/Admin
               endpoints.MapControllerRoute(
            name: "areas",
