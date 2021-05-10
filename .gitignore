@@ -344,3 +344,4 @@ healthchecksdb
 /Services/WebStore.ServiceHosting/WebStore.ServiceHosting.xml
 /Common/WebStore.Domain/WebStore.Domain.xml
 /UI/WebStore/Logs
+/UI/WebStore/wwwroot/lib

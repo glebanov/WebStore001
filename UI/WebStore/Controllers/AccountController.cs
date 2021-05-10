@@ -25,6 +25,13 @@ namespace WebStore.Controllers
 
         //Нам нужен регистр в представлении контроллера Account
         #region Register
+        [AllowAnonymous]
+        public async Task<IActionResult> InNameFree(string UserName)
+        {
+            var user = await _UserManager.FindByNameAsync(UserName);
+            return Json(user is null ? "true" : "Пользователь с таким именем уже существует");
+        }
+
         [AllowAnonymous] //Дает возможность предоставить доступ для анонимных пользователей в заблокированном контроллере
         public IActionResult Register() => View(new RegisterUserViewModel());
         [AllowAnonymous]
