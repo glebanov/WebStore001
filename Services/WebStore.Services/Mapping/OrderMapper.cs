@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using WebStore.Domain.DTO;
+using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Orders;
 
 namespace WebStore.Services.Mapping
@@ -11,6 +12,7 @@ namespace WebStore.Services.Mapping
             : new OrderItemDTO
             {
                 Id = Item.Id,
+                ProductId = Item.Id,
                 Price = Item.Price,
                 Quantity = Item.Quantity,
             };
@@ -20,6 +22,7 @@ namespace WebStore.Services.Mapping
             : new OrderItem
             {
                 Id = Item.Id,
+                Product = new Product { Id = Item.ProductId },
                 Price = Item.Price,
                 Quantity = Item.Quantity,
             };
