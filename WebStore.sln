@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.ServiceHosting", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Clients", "Services\WebStore.Clients\WebStore.Clients.csproj", "{B3CD8E47-1321-4B1A-9E1D-AA8158DBF7CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.ConsoleUl", "UI\WebStore.ConsoleUl\WebStore.ConsoleUl.csproj", "{49394210-38F5-423E-99A7-3499ABC06673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.ConsoleUl", "UI\WebStore.ConsoleUl\WebStore.ConsoleUl.csproj", "{49394210-38F5-423E-99A7-3499ABC06673}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Logger", "Common\WebStore.Logger\WebStore.Logger.csproj", "{18598F4E-57BB-4CB9-82B9-1CBAD4946541}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{49394210-38F5-423E-99A7-3499ABC06673}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49394210-38F5-423E-99A7-3499ABC06673}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49394210-38F5-423E-99A7-3499ABC06673}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18598F4E-57BB-4CB9-82B9-1CBAD4946541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18598F4E-57BB-4CB9-82B9-1CBAD4946541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18598F4E-57BB-4CB9-82B9-1CBAD4946541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18598F4E-57BB-4CB9-82B9-1CBAD4946541}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{235A623C-DBC2-4381-B4D9-88B7959675C0} = {670683E6-FE69-4CD3-8BD1-019B325F17EB}
 		{B3CD8E47-1321-4B1A-9E1D-AA8158DBF7CC} = {670683E6-FE69-4CD3-8BD1-019B325F17EB}
 		{49394210-38F5-423E-99A7-3499ABC06673} = {5205F639-8C48-4469-AB51-6BDF6EBE9EA0}
+		{18598F4E-57BB-4CB9-82B9-1CBAD4946541} = {D0828CC1-C8E4-4D6A-A85A-23E630099CA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DFB89B73-4261-479B-918A-D5606E5B41C2}

@@ -14,6 +14,8 @@ using WebStore.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.IO;
+using Microsoft.Extensions.Logging;
+using WebStore.Logger;
 
 namespace WebStore.ServiceHosting
 {
@@ -85,8 +87,10 @@ namespace WebStore.ServiceHosting
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db, ILoggerFactory log)
         {
+            log.AddLog4Net();
+
             db.Initialize();
 
             if (env.IsDevelopment())
