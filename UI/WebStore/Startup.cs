@@ -17,7 +17,7 @@ using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
-using WebStore.Services.Data;
+using WebStore.Services.Services;
 using WebStore.Services.Services.InCookies;
 using Microsoft.Extensions.Logging;
 using WebStore.Logger;
@@ -86,7 +86,9 @@ namespace WebStore
 
             services.AddTransient<IEmployeesData, EmployeesClient>();
             services.AddScoped<IProductData, ProductsClient>();
-            services.AddScoped<ICartServices, InCookiesCartService>();
+            //services.AddScoped<ICartServices, InCookiesCartService>();
+            services.AddScoped<ICartServices, CartService>();
+            services.AddScoped<ICartStore, InCookiesCartStore>();
             services.AddScoped<IOrderService, OrdersClient>();
             services.AddScoped<IValuesService, ValuesClient>();
 
