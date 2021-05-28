@@ -1,7 +1,7 @@
 ﻿<div class="left-sidebar">
-    <vc:sections /> <!--Вызываем визуальный компонент Sections-->
-   
-   <vc:brands/>
+    <vc:sections section-id="@Context.Request.Query["SectionId"]" /> <!--Вызываем визуальный компонент Sections-->
+
+    <vc:brands brand-id="@Context.Request.Query["BrandId"]" />
 
     <div class="price-range">
         <!--price-range-->
